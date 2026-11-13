@@ -1,0 +1,1542 @@
+{
+  "info": {
+    "_postman_id": "4bafa39c-c5e8-4ee4-a425-f3392f723fa5",
+    "name": "ShopSure API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57924687",
+    "_collection_link": "https://go.postman.co/collection/57924687-4bafa39c-c5e8-4ee4-a425-f3392f723fa5?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get all products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\npm.test(\"responseCode is 200\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.responseCode).to.eql(200);\r\n});\r\npm.test(\"Products is an array\", function () {\r\n    pm.expect(pm.response.json().products).to.be.an(\"array\");\r\n});\r\npm.test(\"Products list is not empty\", function () {\r\n    pm.expect(pm.response.json().products.length).to.be.above(0);\r\n});\r\npm.test(\"Products contain required fields\", function () {\r\n    pm.response.json().products.forEach(function (product) {\r\n        pm.expect(product).to.have.property(\"id\");\r\n        pm.expect(product).to.have.property(\"name\");\r\n        pm.expect(product).to.have.property(\"price\");\r\n        pm.expect(product).to.have.property(\"brand\");\r\n        pm.expect(product).to.have.property(\"category\");\r\n    });\r\n});\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/productsList",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "api",
+                "productsList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST to all products list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\npm.test(\"responseCodeis 405\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.responseCode).to.eql(405);\r\n});\r\npm.test(\"Response message; request not supported\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");\r\n});\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/productsList",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "api",
+                "productsList"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Brands",
+      "item": [
+        {
+          "name": "Get all brands list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "\r\n\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"Brands is an array\", function () {\r\n    pm.expect(pm.response.json().brands).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Brands list is not empty\", function () {\r\n    pm.expect(pm.response.json().brands.length).to.be.above(0);\r\n});\r\n\r\npm.test(\"Every brand contains id and brand\", function () {\r\n    pm.response.json().brands.forEach(function (brand) {\r\n        pm.expect(brand).to.have.property(\"id\");\r\n        pm.expect(brand).to.have.property(\"brand\");\r\n    });\r\n});\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/brandsList",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "api",
+                "brandsList"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT to all brands list",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\npm.test(\"responseCodeis 405\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.responseCode).to.eql(405);\r\n});\r\npm.test(\"Response message; request not supported\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.message).to.eql(\"This request method is not supported.\");\r\n});\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/brandsList",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "api",
+                "brandsList"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Search",
+      "item": [
+        {
+          "name": "POST to search product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"Products is an array\", function () {\r\n    pm.expect(pm.response.json().products).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Products list is not empty\", function () {\r\n    pm.expect(pm.response.json().products.length).to.be.above(0);\r\n});\r\n\r\npm.test(\"Search results are related to top\", function () {\r\n    pm.response.json().products.forEach(function (product) {\r\n        pm.expect(product.name.toLowerCase()).to.include(\"top\");\r\n    });\r\n});\r\n\r\npm.test(\"Products contain required fields\", function () {\r\n    pm.response.json().products.forEach(function (product) {\r\n        pm.expect(product).to.have.property(\"id\");\r\n        pm.expect(product).to.have.property(\"name\");\r\n        pm.expect(product).to.have.property(\"price\");\r\n        pm.expect(product).to.have.property(\"brand\");\r\n        pm.expect(product).to.have.property(\"category\");\r\n    });\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "search_product",
+                  "value": "top"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/searchProduct",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "api",
+                "searchProduct"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST to search products without products search parameter",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 400\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(400);\r\n});\r\n\r\npm.test(\"Missing search parameter message is returned\", function () {\r\n    pm.expect(pm.response.json().message)\r\n        .to.eql(\"Bad request, search_product parameter is missing in POST request.\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseURL}}/api/searchProduct",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "api",
+                "searchProduct"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Post search product with no matchng",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"Products is an array\", function () {\r\n    pm.expect(pm.response.json().products).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"No matching products are returned\", function () {\r\n    pm.expect(pm.response.json().products).to.have.lengthOf(0);\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "search_product",
+                  "value": "xyznonexistent987654"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseURL}}/api/searchProduct",
+              "host": [
+                "{{baseURL}}"
+              ],
+              "path": [
+                "api",
+                "searchProduct"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Account lifestyle",
+      "item": [
+        {
+          "name": "Register",
+          "item": [
+            {
+              "name": "Post to register user account",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"API response code is 201\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(201);\r\n});\r\n\r\npm.test(\"User created successfully\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"User created!\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": " Oyin Test"
+                    },
+                    {
+                      "key": "email",
+                      "value": "{{$randomEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": " {{userPassword}}"
+                    },
+                    {
+                      "key": "title",
+                      "value": " Mrs"
+                    },
+                    {
+                      "key": "birth_date",
+                      "value": " 15"
+                    },
+                    {
+                      "key": "birth_month",
+                      "value": " 5"
+                    },
+                    {
+                      "key": "birth_year",
+                      "value": " 2000"
+                    },
+                    {
+                      "key": "firstname",
+                      "value": " Oyin"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": " Tester"
+                    },
+                    {
+                      "key": "company",
+                      "value": " Test Company"
+                    },
+                    {
+                      "key": "address1",
+                      "value": " 10 Test Street"
+                    },
+                    {
+                      "key": "address2",
+                      "value": " Flat 2"
+                    },
+                    {
+                      "key": "country",
+                      "value": " India"
+                    },
+                    {
+                      "key": "zipcode",
+                      "value": " 110001"
+                    },
+                    {
+                      "key": "state",
+                      "value": " Delhi"
+                    },
+                    {
+                      "key": "city",
+                      "value": " New Delhi"
+                    },
+                    {
+                      "key": "mobile_number",
+                      "value": " 08012345678"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/createAccount",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "createAccount"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Register with existing email",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\npm.test(\"responseCode is 400\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.responseCode).to.eql(400);\r\n});\r\npm.test(\"Message; Email alreay exist\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.message).to.eql(\"Email already exists!\");\r\n});\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": " Oyin Test"
+                    },
+                    {
+                      "key": "email",
+                      "value": "{{userEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": " {{userPassword}}"
+                    },
+                    {
+                      "key": "title",
+                      "value": " Mrs"
+                    },
+                    {
+                      "key": "birth_date",
+                      "value": " 15"
+                    },
+                    {
+                      "key": "birth_month",
+                      "value": " 5"
+                    },
+                    {
+                      "key": "birth_year",
+                      "value": " 2000"
+                    },
+                    {
+                      "key": "firstname",
+                      "value": " Oyin"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": " Tester"
+                    },
+                    {
+                      "key": "company",
+                      "value": " Test Company"
+                    },
+                    {
+                      "key": "address1",
+                      "value": " 10 Test Street"
+                    },
+                    {
+                      "key": "address2",
+                      "value": " Flat 2"
+                    },
+                    {
+                      "key": "country",
+                      "value": " India"
+                    },
+                    {
+                      "key": "zipcode",
+                      "value": " 110001"
+                    },
+                    {
+                      "key": "state",
+                      "value": " Delhi"
+                    },
+                    {
+                      "key": "city",
+                      "value": " New Delhi"
+                    },
+                    {
+                      "key": "mobile_number",
+                      "value": " 08012345678"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/createAccount",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "createAccount"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Register with missing field",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 400\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(400);\r\n});\r\n\r\n\r\npm.test(\"Missing email message is returned\", function () {\r\n    pm.expect(pm.response.json().message)\r\n        .to.eql(\"Bad request, email parameter is missing in POST request.\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": " Oyin Test"
+                    },
+                    {
+                      "key": "email",
+                      "value": "{{$randomEmail}}",
+                      "disabled": true
+                    },
+                    {
+                      "key": "password",
+                      "value": " {{userPassword}}"
+                    },
+                    {
+                      "key": "title",
+                      "value": " Mrs"
+                    },
+                    {
+                      "key": "birth_date",
+                      "value": " 15"
+                    },
+                    {
+                      "key": "birth_month",
+                      "value": " 5"
+                    },
+                    {
+                      "key": "birth_year",
+                      "value": " 2000"
+                    },
+                    {
+                      "key": "firstname",
+                      "value": " Oyin"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": " Tester"
+                    },
+                    {
+                      "key": "company",
+                      "value": " Test Company"
+                    },
+                    {
+                      "key": "address1",
+                      "value": " 10 Test Street"
+                    },
+                    {
+                      "key": "address2",
+                      "value": " Flat 2"
+                    },
+                    {
+                      "key": "country",
+                      "value": " India"
+                    },
+                    {
+                      "key": "zipcode",
+                      "value": " 110001"
+                    },
+                    {
+                      "key": "state",
+                      "value": " Delhi"
+                    },
+                    {
+                      "key": "city",
+                      "value": " New Delhi"
+                    },
+                    {
+                      "key": "mobile_number",
+                      "value": " 08012345678"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/createAccount",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "createAccount"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "item": [
+            {
+              "name": "Verify login with valid details",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\n\r\npm.test(\"User exists message is returned\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"User exists!\");\r\n});\r\n\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "email",
+                      "value": "{{userEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{userPassword}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/verifyLogin",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "verifyLogin"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Login with invalid credentials",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 404\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(404);\r\n});\r\n\r\n\r\npm.test(\"User not found message is returned\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"User not found!\");\r\n});\r\n\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "email",
+                      "value": "{{userEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "wrongPassword"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/verifyLogin",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "verifyLogin"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "{{userEmail}}",
+                      "disabled": true
+                    },
+                    {
+                      "key": "password",
+                      "value": "wrongpassword",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Login with missing email",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 400\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(400);\r\n});\r\n\r\n\r\npm.test(\"Missing email or password message is returned\", function () {\r\n    pm.expect(pm.response.json().message)\r\n        .to.eql(\"Bad request, email or password parameter is missing in POST request.\");\r\n});\r\n\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "password",
+                      "value": "{{userPassword}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/verifyLogin",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "verifyLogin"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete to verify login",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 405\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(405);\r\n});\r\n\r\n\r\npm.test(\"Unsupported method message is returned\", function () {\r\n    pm.expect(pm.response.json().message)\r\n        .to.eql(\"This request method is not supported.\");\r\n});\r\n\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "email",
+                      "value": "{{userEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{userPassword}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/verifyLogin",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "verifyLogin"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "User details",
+          "item": [
+            {
+              "name": "Get user account detail by email",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\n\r\npm.test(\"User is an object\", function () {\r\n    pm.expect(pm.response.json().user).to.be.an(\"object\");\r\n});\r\n\r\npm.test(\"User email matches requested email\", function () {\r\n    pm.expect(pm.response.json().user.email)\r\n        .to.eql(pm.environment.get(\"userEmail\"));\r\n});\r\n\r\n\r\npm.test(\"User contains required fields\", function () {\r\n    pm.expect(pm.response.json().user).to.have.property(\"id\");\r\n    pm.expect(pm.response.json().user).to.have.property(\"name\");\r\n    pm.expect(pm.response.json().user).to.have.property(\"email\");\r\n});\r\n\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "",
+                      "value": "",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/getUserDetailByEmail?email={{userEmail}}",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "getUserDetailByEmail"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "{{userEmail}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get user account details with unregistered email",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 404\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(404);\r\n});\r\n\r\n\r\npm.test(\"Unknown email message is returned\", function () {\r\n    pm.expect(pm.response.json().message)\r\n        .to.eql(\"Account not found with this email, try another email!\");\r\n});\r\n\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseURL}}/api/getUserDetailByEmail?email={{unregisteredEmail}}",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "getUserDetailByEmail"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "{{unregisteredEmail}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Account management",
+          "item": [
+            {
+              "name": "update account",
+              "item": [
+                {
+                  "name": "Update user account successfully",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"responseCode is 200\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.responseCode).to.eql(200);\r\n});\r\npm.test(\"message is 'User updated'\", function () {\r\n    var jsonData = pm.response.json();\r\n    pm.expect(jsonData.message).to.eql(\"User updated!\");\r\n});\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});\r\n"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "key": "name",
+                          "value": " Oyin Upadated"
+                        },
+                        {
+                          "key": "email",
+                          "value": "{{userEmail}}"
+                        },
+                        {
+                          "key": "password",
+                          "value": " {{userPassword}}"
+                        },
+                        {
+                          "key": "title",
+                          "value": " Mrs"
+                        },
+                        {
+                          "key": "birth_date",
+                          "value": " 15"
+                        },
+                        {
+                          "key": "birth_month",
+                          "value": " 5"
+                        },
+                        {
+                          "key": "birth_year",
+                          "value": " 2000"
+                        },
+                        {
+                          "key": "firstname",
+                          "value": " Oyin"
+                        },
+                        {
+                          "key": "lastname",
+                          "value": " Tester"
+                        },
+                        {
+                          "key": "company",
+                          "value": " Test Company"
+                        },
+                        {
+                          "key": "address1",
+                          "value": " 10 Test Street"
+                        },
+                        {
+                          "key": "address2",
+                          "value": " Flat 2"
+                        },
+                        {
+                          "key": "country",
+                          "value": " Nigeria"
+                        },
+                        {
+                          "key": "zipcode",
+                          "value": " 110001"
+                        },
+                        {
+                          "key": "state",
+                          "value": " Lagos"
+                        },
+                        {
+                          "key": "city",
+                          "value": " ikeja"
+                        },
+                        {
+                          "key": "mobile_number",
+                          "value": " 08012345678"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseURL}}/api/updateAccount",
+                      "host": [
+                        "{{baseURL}}"
+                      ],
+                      "path": [
+                        "api",
+                        "updateAccount"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Update user account with wrong password",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 404\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(404);\r\n});\r\n\r\npm.test(\"Account not found message is returned\", function () {\r\n    pm.expect(pm.response.json().message)\r\n        .to.eql(\"Account not found!\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "key": "name",
+                          "value": " Oyin Upadated"
+                        },
+                        {
+                          "key": "email",
+                          "value": "{{userEmail}}"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{wrongPassword}}"
+                        },
+                        {
+                          "key": "title",
+                          "value": " Mrs"
+                        },
+                        {
+                          "key": "birth_date",
+                          "value": " 15"
+                        },
+                        {
+                          "key": "birth_month",
+                          "value": " 5"
+                        },
+                        {
+                          "key": "birth_year",
+                          "value": " 2000"
+                        },
+                        {
+                          "key": "firstname",
+                          "value": " Oyin"
+                        },
+                        {
+                          "key": "lastname",
+                          "value": " Tester"
+                        },
+                        {
+                          "key": "company",
+                          "value": " Test Company"
+                        },
+                        {
+                          "key": "address1",
+                          "value": " 10 Test Street"
+                        },
+                        {
+                          "key": "address2",
+                          "value": " Flat 2"
+                        },
+                        {
+                          "key": "country",
+                          "value": " Nigeria"
+                        },
+                        {
+                          "key": "zipcode",
+                          "value": " 110001"
+                        },
+                        {
+                          "key": "state",
+                          "value": " Lagos"
+                        },
+                        {
+                          "key": "city",
+                          "value": " ikeja"
+                        },
+                        {
+                          "key": "mobile_number",
+                          "value": " 08012345678"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseURL}}/api/updateAccount",
+                      "host": [
+                        "{{baseURL}}"
+                      ],
+                      "path": [
+                        "api",
+                        "updateAccount"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Delete",
+              "item": [
+                {
+                  "name": "Delete Account with wrong password",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "type": "text/javascript",
+                        "exec": [
+                          "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 404\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(404);\r\n});\r\n\r\n\r\npm.test(\"Account not found message is returned\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"Account not found!\");\r\n});\r\n\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                        ]
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "key": "email",
+                          "value": "{{userEmail}}"
+                        },
+                        {
+                          "key": "password",
+                          "value": "{{wrongPassword}}"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseURL}}/api/deleteAccount",
+                      "host": [
+                        "{{baseURL}}"
+                      ],
+                      "path": [
+                        "api",
+                        "deleteAccount"
+                      ],
+                      "query": [
+                        {
+                          "key": "",
+                          "value": "",
+                          "disabled": true
+                        },
+                        {
+                          "key": "",
+                          "value": "",
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Chained Lifecycle",
+          "item": [
+            {
+              "name": "chain _ create account",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const email = pm.variables.replaceIn(\"{{$randomEmail}}\");\r\npm.environment.set(\"chainEmail\", email);"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Account creation response code is 201\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(201);\r\n});\r\n\r\npm.test(\"Account created successfully\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"User created!\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "{{chainName}}"
+                    },
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{chainPassword}}"
+                    },
+                    {
+                      "key": "title",
+                      "value": " Mrs"
+                    },
+                    {
+                      "key": "birth_date",
+                      "value": " 15"
+                    },
+                    {
+                      "key": "birth_month",
+                      "value": " 5"
+                    },
+                    {
+                      "key": "birth_year",
+                      "value": " 2000"
+                    },
+                    {
+                      "key": "firstname",
+                      "value": " Oyin"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": " Tester"
+                    },
+                    {
+                      "key": "company",
+                      "value": " Test Company"
+                    },
+                    {
+                      "key": "address1",
+                      "value": " 10 Test Street"
+                    },
+                    {
+                      "key": "address2",
+                      "value": " Flat 2"
+                    },
+                    {
+                      "key": "country",
+                      "value": " India"
+                    },
+                    {
+                      "key": "zipcode",
+                      "value": " 110001"
+                    },
+                    {
+                      "key": "state",
+                      "value": " Delhi"
+                    },
+                    {
+                      "key": "city",
+                      "value": " New Delhi"
+                    },
+                    {
+                      "key": "mobile_number",
+                      "value": " 08012345678"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/createAccount",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "createAccount"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "chain_ verify login",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"User exists message is returned\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"User exists!\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{chainPassword}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/verifyLogin",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "verifyLogin"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "chain_ get user by email",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"User is an object\", function () {\r\n    pm.expect(pm.response.json().user).to.be.an(\"object\");\r\n});\r\n\r\npm.test(\"User email matches chainEmail\", function () {\r\n    pm.expect(pm.response.json().user.email)\r\n        .to.eql(pm.environment.get(\"chainEmail\"));\r\n});\r\n\r\npm.test(\"User contains required fields\", function () {\r\n    const user = pm.response.json().user;\r\n\r\n    pm.expect(user).to.have.property(\"id\");\r\n    pm.expect(user).to.have.property(\"name\");\r\n    pm.expect(user).to.have.property(\"email\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});\r\n\r\npm.environment.set(\r\n    \"originalName\",\r\n    pm.response.json().user.name\r\n);"
+                    ]
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      ""
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseURL}}/api/getUserDetailByEmail?email={{chainEmail}}",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "getUserDetailByEmail"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "chain_ update user account",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"Account updated successfully\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"User updated!\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "Adebayo updated"
+                    },
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{chainPassword}}"
+                    },
+                    {
+                      "key": "title",
+                      "value": " Mrs"
+                    },
+                    {
+                      "key": "birth_date",
+                      "value": " 15"
+                    },
+                    {
+                      "key": "birth_month",
+                      "value": " 5"
+                    },
+                    {
+                      "key": "birth_year",
+                      "value": " 2000"
+                    },
+                    {
+                      "key": "firstname",
+                      "value": " Oyin"
+                    },
+                    {
+                      "key": "lastname",
+                      "value": " Tester"
+                    },
+                    {
+                      "key": "company",
+                      "value": " Test Company"
+                    },
+                    {
+                      "key": "address1",
+                      "value": " 10 Test Street"
+                    },
+                    {
+                      "key": "address2",
+                      "value": " Flat 2"
+                    },
+                    {
+                      "key": "country",
+                      "value": " Nigeria"
+                    },
+                    {
+                      "key": "zipcode",
+                      "value": " 110001"
+                    },
+                    {
+                      "key": "state",
+                      "value": " Lagos"
+                    },
+                    {
+                      "key": "city",
+                      "value": " ikeja"
+                    },
+                    {
+                      "key": "mobile_number",
+                      "value": " 08012345678"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/updateAccount",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "updateAccount"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "chain verify updated account",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"Updated name is correct\", function () {\r\n    pm.expect(pm.response.json().user.name).to.eql('Adebayo updated');\r\n});\r\n\r\npm.test(\"User email matches chainEmail\", function () {\r\n    pm.expect(pm.response.json().user.email)\r\n        .to.eql(pm.environment.get(\"chainEmail\"));\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/getUserDetailByEmail?email={{chainEmail}}",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "getUserDetailByEmail"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "chain_ Delete Account",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 200\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(200);\r\n});\r\n\r\npm.test(\"Account deleted successfully\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"Account deleted!\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{chainPassword}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/deleteAccount",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "deleteAccount"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Chain - Verify Login After Deletion",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"HTTP status is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response code is 404\", function () {\r\n    pm.expect(pm.response.json().responseCode).to.eql(404);\r\n});\r\n\r\npm.test(\"Deleted account cannot log in\", function () {\r\n    pm.expect(pm.response.json().message).to.eql(\"User not found!\");\r\n});\r\n\r\npm.test(\"Content-Type is HTML\", function () {\r\n    pm.expect(pm.response.headers.get(\"Content-Type\"))\r\n        .to.include(\"text/html\");\r\n});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{chainPassword}}"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseURL}}/api/verifyLogin",
+                  "host": [
+                    "{{baseURL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "verifyLogin"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "{{chainEmail}}",
+                      "disabled": true
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{chainPassword}}",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
