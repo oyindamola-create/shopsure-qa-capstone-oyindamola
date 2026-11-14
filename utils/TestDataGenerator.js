@@ -24,7 +24,7 @@ class TestDataGenerator {
   generateUserProfile() {
     const firstNames = ["Oyin", "Sarah", "John", "David"];
     const lastNames = ["Ade", "Smith", "Johnson", "Brown"];
-    const titles = ["Mr", "Mrs", "Miss", "Ms"];
+    const titles = ["Mr", "Mrs"];
 
     const firstName = this.pickRandomItem(firstNames);
     const lastName = this.pickRandomItem(lastNames);
