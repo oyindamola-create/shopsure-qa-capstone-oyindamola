@@ -859,7 +859,7 @@
                         },
                         {
                           "key": "password",
-                          "value": " {{userPassword}}"
+                          "value": "{{userPassword}}"
                         },
                         {
                           "key": "title",

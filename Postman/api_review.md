@@ -1,4 +1,3 @@
-
 # ShopSure API Review
 
 ## 1. Overview
@@ -55,11 +54,11 @@ When testing the Search Product endpoint with the search term `top`, some return
 
 ### 3.4 Login Behaviour
 
-During testing, the valid credentials used for the original test account returned a response code of `404` with the message `User not found!`, even though the account could be retrieved through the Get User Detail by Email endpoint.
+During initial testing, the valid login request returned a response code of `404` with the message `User not found!`, even though the account could be retrieved through the Get User Detail by Email endpoint.
 
-However, the valid login request in the chained account lifecycle test passed successfully.
+Further investigation revealed that the email stored in the Postman environment contained a leading space. After removing the extra whitespace, the valid login request returned a successful response.
 
-**Recommendation:** Investigate the inconsistent login behaviour to determine why the original test account could not log in while the newly created chained test account could.
+**Recommendation:** Consider trimming leading and trailing whitespace from email inputs before processing authentication requests to prevent avoidable login failures caused by accidental spaces.
 
 ### 3.5 User Information Exposure
 
