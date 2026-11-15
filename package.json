@@ -4,8 +4,12 @@
   "version": "1.0.0",
   "description": "QA capstone project for ShopSure",
   "scripts": {
-    "test:api": "newman run \"Postman/ShopSure API.postman_collection.json\" -e \"Postman/ShopSure Environment.postman_environment.json\" -r cli,htmlextra --reporter-htmlextra-export \"reports/newman/shopsure-api-report.html\"",
     "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "report": "playwright show-report",
+    "test:api": "newman run \"Postman/ShopSure API.postman_collection.json\" -e \"Postman/ShopSure Environment.postman_environment.json\" -r cli,htmlextra --reporter-htmlextra-export \"reports/newman/shopsure-api-report.html\"",
     "test:registration": "playwright test tests/registration.spec.js --project=chromium --headed",
     "test:registration:debug": "playwright test tests/registration.spec.js --project=chromium --debug",
     "test:auth": "playwright test tests/auth.spec.js",
