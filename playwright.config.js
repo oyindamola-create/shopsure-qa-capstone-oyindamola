@@ -1,3 +1,4 @@
+
 const { defineConfig, devices } = require("@playwright/test");
 
 module.exports = defineConfig({
@@ -8,6 +9,7 @@ module.exports = defineConfig({
   use: {
     baseURL: "https://automationexercise.com",
     headless: true,
+    testIdAttribute: "data-qa",
   },
 
   projects: [

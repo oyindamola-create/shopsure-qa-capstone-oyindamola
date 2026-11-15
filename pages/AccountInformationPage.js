@@ -30,8 +30,10 @@ class AccountInformationPage extends BasePage {
   async selectTitle(title) {
     if (title === "Mr") {
       await this.mrRadio.check();
-    } else {
+    } else if (title === "Mrs") {
       await this.mrsRadio.check();
+    } else {
+      throw new Error(`Invalid title: ${title}`);
     }
   }
 

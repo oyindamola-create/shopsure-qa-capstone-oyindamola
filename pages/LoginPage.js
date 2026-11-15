@@ -6,17 +6,35 @@ class LoginPage extends BasePage {
   constructor(page) {
     super(page);
 
-    this.emailInput = this.page.getByRole("textbox", {
-      name: "Email Address"
-    });
+    this.emailInput = this.page.getByTestId("login-email");
 
     this.passwordInput = this.page.getByRole("textbox", {
-      name: "Password"
+      name: "Password",
     });
 
     this.loginButton = this.page.getByRole("button", {
-      name: "Login"
+      name: "Login",
     });
+
+    this.signupNameInput = this.page.getByRole("textbox", {
+      name: "Name",
+    });
+
+    this.signupEmailInput = this.page.locator(
+      'input[data-qa="signup-email"]'
+    );
+
+    this.signupButton = this.page.getByRole("button", {
+      name: "Signup",
+    });
+
+    this.loginErrorMessage = this.page.getByText(
+      "Your email or password is incorrect!"
+    );
+
+    this.signupErrorMessage = this.page.getByText(
+      "Email Address already exist!"
+    );
   }
 
   async enterLoginDetails(email, password) {
@@ -31,9 +49,26 @@ class LoginPage extends BasePage {
   async verifyLoginPage() {
     await expect(
       this.page.getByRole("heading", {
-        name: "Login to your account"
+        name: "Login to your account",
       })
     ).toBeVisible();
+  }
+
+  async verifyInvalidLoginMessage() {
+    await expect(this.loginErrorMessage).toBeVisible();
+  }
+
+  async verifyExistingEmailMessage() {
+    await expect(this.signupErrorMessage).toBeVisible();
+  }
+
+  async enterSignupDetails(name, email) {
+    await this.signupNameInput.fill(name);
+    await this.signupEmailInput.fill(email);
+  }
+
+  async clickSignup() {
+    await this.signupButton.click();
   }
 }
 
